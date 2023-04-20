@@ -5,35 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PSProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        MinHeight="250" MinWidth="350">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/> <!-- TODO: Think of this when we add the toggle-->
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition MinHeight="50" Height="*"/>
         </Grid.RowDefinitions>
-        <ComboBox Name="ddAttr" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Attributes}" Margin="10" IsEditable="True" IsTextSearchEnabled="True" Text="Select Attributes to Filter">
+        <Label Content="TODO: Add toggle between different entities"/>
+        <ComboBox Name="ddAttr" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Attributes}" Margin="10" IsEditable="True" IsTextSearchEnabled="True" Text="Select Attributes to Filter">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
+                        <!--
                         <Label Content="{Binding AttributeType}"/>
+                        -->
                         <CheckBox Name="chkAttr" IsChecked="{Binding Checked}" Content="{Binding AttributeName}" Checked="chkAttr_CheckedAndUnchecked" Unchecked="chkAttr_CheckedAndUnchecked"/>
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Grid.Row="2" Grid.Column="0" Command="{Binding FilterCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10" Width="50" Height="25" Content="Filter"></Button>
-        <ListView Grid.Row ="1" Grid.Column="1" Name="attrInputList" ItemsSource="{Binding SelectedAttributes}">
+        <Button Grid.Row="1" Grid.Column="1" Command="{Binding FilterCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10" Width="50" Height="25" Content="Filter"></Button>
+        
+        <Grid Margin="10,0,0,0" Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label FontWeight="Bold">Attribute</Label>
+            <Label Grid.Column="1" FontWeight="Bold">Value</Label>
+        </Grid>
+        <ListView Margin="10,0,10,10" Grid.Row="3" Grid.Column="1" Name="attrInputList" ItemsSource="{Binding SelectedAttributes}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding AttributeName}"/>
-                        <TextBox Text="{Binding AttributeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="attrInput" Margin = "10,0,0,0" Width="Auto" MinWidth="50"/>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="{Binding AttributeName}"/>
+                        <TextBox Grid.Column="1" Text="{Binding AttributeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="attrInput" Width="Auto" MinWidth="50"/>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

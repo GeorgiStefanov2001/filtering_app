@@ -10,9 +10,8 @@ using System.Windows.Input;
 
 namespace PSProject.ViewModel
 {
-    public class MovieViewModel : DependencyObject, INotifyPropertyChanged
+    public class MovieViewModel : ObservableObject
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private ObservableCollection<Movie> _movies;
         public ObservableCollection<Movie> Movies
@@ -24,7 +23,7 @@ namespace PSProject.ViewModel
             set
             {
                 _movies = value;
-                PropChanged("Movies");
+                RaisePropertyChangedEvent("Movies");
             }
         }
 
@@ -38,7 +37,7 @@ namespace PSProject.ViewModel
             set
             {
                 _attributes = value;
-                PropChanged("Attributes");
+                RaisePropertyChangedEvent("Attributes");
             }
         }
 
@@ -53,67 +52,24 @@ namespace PSProject.ViewModel
             set
             {
                 _selectedAttributes = value;
-                PropChanged("SelectedAttributes");
+                RaisePropertyChangedEvent("SelectedAttributes");
             }
         }
-
-
-        public void PropChanged(String propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
 
         public MovieViewModel()
         {
             MovieContext context = new MovieContext();
             Movies = new ObservableCollection<Movie>(context.Movies);
 
-            //get the attributes of the Movie as a collection of strings
-            Attributes = new ObservableCollection<Model.Attribute>(GetMovieAttributes());
+            //get the attributes of the Movie
+            Attributes = new ObservableCollection<Model.Attribute>(Model.Attribute.GetAttributesOfEntity(new Movie()));
             SelectedAttributes = new ObservableCollection<Model.Attribute>();
         }
 
-        private List<Model.Attribute> GetMovieAttributes()
-        {
-            Movie movie = new Movie();
-            List<Model.Attribute> attributes = new List<Model.Attribute>();
-            foreach(var property in movie.GetType().GetProperties())
-            {
-                if (!property.Name.Equals("Id"))
-                {
-                    Model.Attribute attr = new Model.Attribute();
-                    attr.AttributeName = property.Name;
-                    attr.Checked = false;
-                    attr.AttributeType = property.PropertyType;
-                    attr.AttributeValue = "";
-                    attributes.Add(attr);
-                }
-            }
-
-            return attributes;
-        }
 
         public void AttrCheckedUnchecked()
         {
-            foreach(var attribute in Attributes)
-            {
-
-                if (attribute.Checked)
-                {
-                    if (!SelectedAttributes.Contains(attribute))
-                    {
-                        SelectedAttributes.Add(attribute);
-                    }
-                }
-                else if (SelectedAttributes.Contains(attribute))
-                {
-                    SelectedAttributes.Remove(attribute);
-                }
-            }
+            Model.Attribute.AttributeCheckedUnchecked(Attributes, SelectedAttributes);      
         }
 
         public ICommand FilterCommand
