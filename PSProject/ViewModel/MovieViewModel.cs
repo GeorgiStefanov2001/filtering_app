@@ -79,9 +79,8 @@ namespace PSProject.ViewModel
 
         public void FilterMovies()
         {
-            //MessageBox.Show("TODO: Will filter movies");
-            var value = Convert.ChangeType(SelectedAttributes[0].AttributeValue, SelectedAttributes[0].AttributeType);
-            MessageBox.Show(SelectedAttributes[0].AttributeName + " " + value + " " + value.GetType());
+            var movies_from_db = new MovieContext().Movies.ToList<Movie>();
+            Movies = Model.Filter<Movie>.FilterEntitiesBasedOnAttributes(movies_from_db, SelectedAttributes);
         }
 
     }

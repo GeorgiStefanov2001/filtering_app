@@ -7,7 +7,7 @@ using System.Text;
 namespace PSProject.Model
 {
     [Table("Movies")]
-    public class Movie
+    public class Movie : Entity
     {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
         public Int32 Id { get; set; }
@@ -17,5 +17,10 @@ namespace PSProject.Model
         public String Director { get; set; }
         public Int32 YearReleased { get; set; }
         public Double Rating { get; set; }
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 }

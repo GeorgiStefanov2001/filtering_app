@@ -19,7 +19,7 @@ namespace PSProject.Model
             return AttributeName;
         }
 
-        public static List<Attribute> GetAttributesOfEntity(object entity)
+        public static List<Attribute> GetAttributesOfEntity(Entity entity)
         {
             List<Attribute> attributes = new List<Attribute>();
             foreach (var property in entity.GetType().GetProperties())
