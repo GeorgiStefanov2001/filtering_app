@@ -38,11 +38,21 @@ namespace PSProject.Model
                     {
                         var attrValue = GetAttributeValue(attr);
 
-                        var compResult = (propertyValue as IComparable).CompareTo(attrValue as IComparable);
-
-                        if(compResult != (attr.ComparisonType - 1)) // take a look at ComparisonType in the Attribute class
+                        if (attr.ComparisonType == 3)
                         {
-                            should_add_entity = false;
+                            //Contains
+                            if(!propertyValue.ToString().ToLower().Contains(attrValue.ToString().ToLower()))
+                            {
+                                should_add_entity = false;
+                            }
+                        }
+                        else
+                        {
+                            var compResult = (propertyValue as IComparable).CompareTo(attrValue as IComparable);
+                            if (compResult != (attr.ComparisonType - 1)) // take a look at ComparisonType in the Attribute class
+                            {
+                                should_add_entity = false;
+                            }
                         }
                     }
                 }

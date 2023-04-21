@@ -19,6 +19,7 @@ namespace PSProject.Model
         //0 -> lower than
         //1 -> equals
         //2 -> greater than
+        //3 -> contains (string only)
         public Int32 ComparisonType { get; set; }
 
         public override string ToString()

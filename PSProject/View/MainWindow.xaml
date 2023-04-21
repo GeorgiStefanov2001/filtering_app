@@ -109,18 +109,40 @@
                                   IsTextSearchEnabled="True"
                                   SelectedIndex="{Binding ComparisonType}"
                                   Width="Auto">
-                            <ComboBox.Style>
-                                <Style TargetType="{x:Type ComboBox}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsComparible}" Value="False">
-                                            <Setter Property="IsEnabled" Value="False"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
-                            <ComboBoxItem>Lower than</ComboBoxItem>
-                            <ComboBoxItem IsSelected="True">Equals</ComboBoxItem>
-                            <ComboBoxItem>Greater than</ComboBoxItem>
+                            <ComboBoxItem Content="Lower Than">
+                                <ComboBoxItem.Style>
+                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsComparible}" Value="False">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBoxItem.Style>
+                            </ComboBoxItem>
+                            <ComboBoxItem IsSelected="True" Content="Equals"/>
+                            <ComboBoxItem Content="Greater Than">
+                                <ComboBoxItem.Style>
+                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsComparible}" Value="False">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBoxItem.Style>
+                            </ComboBoxItem>
+                            <ComboBoxItem Content="Contains">
+                                <ComboBoxItem.Style>
+                                    <Style TargetType="{x:Type ComboBoxItem}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsComparible}" Value="True">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBoxItem.Style>
+                            </ComboBoxItem>
                         </ComboBox>
                         <TextBox Grid.Column="2" 
                                  Text="{Binding AttributeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
