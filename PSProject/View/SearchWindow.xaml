@@ -1,0 +1,17 @@
+﻿<Window x:Class="PSProject.View.SearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PSProject.View"
+        mc:Ignorable="d"
+        Title="TBD" Height="450" Width="800"
+        MinHeight="100">
+    <Grid>
+        <DataGrid ItemsSource="{Binding FilteredEntities}" 
+                  AutoGeneratingColumn="OnAutoGeneratingColumn" 
+                  IsReadOnly="True" 
+                  AlternationCount="2" 
+                  AlternatingRowBackground="LightSalmon"/>
+    </Grid>
+</Window>

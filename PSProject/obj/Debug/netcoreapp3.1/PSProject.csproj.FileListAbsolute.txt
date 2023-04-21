@@ -30,3 +30,5 @@ C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\PSPr
 C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\PSProject.csproj.GenerateResource.cache
 C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\PSProject.Migrations.AddMovieBudget.resources
 C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\PSProject.Migrations.RemoveMovieBudget.resources
+C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\View\SearchWindow.g.cs
+C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\View\SearchWindow.baml

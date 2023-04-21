@@ -1,4 +1,5 @@
 ﻿using PSProject.Model;
+using PSProject.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,17 +14,17 @@ namespace PSProject.ViewModel
     public class MovieViewModel : ObservableObject
     {
 
-        private ObservableCollection<Movie> _movies;
-        public ObservableCollection<Movie> Movies
+        private ObservableCollection<Movie> _filteredEntities;
+        public ObservableCollection<Movie> FilteredEntities
         {
             get
             {
-                return _movies;
+                return _filteredEntities;
             }
             set
             {
-                _movies = value;
-                RaisePropertyChangedEvent("Movies");
+                _filteredEntities = value;
+                RaisePropertyChangedEvent("FilteredEntities");
             }
         }
 
@@ -58,9 +59,6 @@ namespace PSProject.ViewModel
 
         public MovieViewModel()
         {
-            MovieContext context = new MovieContext();
-            Movies = new ObservableCollection<Movie>(context.Movies);
-
             //get the attributes of the Movie
             Attributes = new ObservableCollection<Model.Attribute>(Model.Attribute.GetAttributesOfEntity(new Movie()));
             SelectedAttributes = new ObservableCollection<Model.Attribute>();
@@ -79,9 +77,19 @@ namespace PSProject.ViewModel
 
         public void FilterMovies()
         {
-            var movies_from_db = new MovieContext().Movies.ToList<Movie>();
-            Movies = Model.Filter<Movie>.FilterEntitiesBasedOnAttributes(movies_from_db, SelectedAttributes);
+            try
+            {
+                var movies_from_db = new MovieContext().Movies.ToList<Movie>();
+                FilteredEntities = Model.Filter<Movie>.FilterEntitiesBasedOnAttributes(movies_from_db, SelectedAttributes);
+                SearchWindow searchWindow = new SearchWindow();
+                searchWindow.DataContext = this;
+                searchWindow.Title = "Movies";
+                searchWindow.Show();
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
-
     }
 }

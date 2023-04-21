@@ -22,10 +22,25 @@ namespace PSProject
     /// </summary>
     public partial class MainWindow : Window
     {
+        MovieViewModel movieViewModel;
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MovieViewModel();
+            movieViewModel = new MovieViewModel();
+        }
+
+        public void EntitySelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmb = sender as ComboBox;
+            ComboBoxItem item = (ComboBoxItem)cmb.SelectedItem;
+            switch (item.Content.ToString())
+            {
+                case "Movies":
+                    this.DataContext = movieViewModel;
+                    break;
+                case "Cars":
+                    break;
+            }
         }
 
         public void chkAttr_CheckedAndUnchecked(object sender, RoutedEventArgs e)

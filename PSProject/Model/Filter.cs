@@ -10,6 +10,21 @@ namespace PSProject.Model
     {
         public static ObservableCollection<T> FilterEntitiesBasedOnAttributes(List<T> Entities, ObservableCollection<Attribute> SelectedAttributes)
         {
+            //firstly, verify that all selected attributes have a value
+            List<string> missingValues = new List<string>();
+            foreach(var attr in SelectedAttributes)
+            {
+                if (attr.AttributeValue=="") //param comes as String from the XAML textbox
+                {
+                    missingValues.Add(attr.AttributeName);
+                }
+            }
+
+            if(missingValues.Count != 0)
+            {
+                throw new ArgumentException("Enter a value for attribute(s): " + String.Join(", ", missingValues) + ".");
+            }
+
             ObservableCollection<T> result = new ObservableCollection<T>();
 
             foreach (var entity in Entities)
@@ -22,8 +37,7 @@ namespace PSProject.Model
 
                     if (propertyValue != null)
                     {
-                        var converter = TypeDescriptor.GetConverter(attr.AttributeType);
-                        var attrValue = converter.ConvertFrom(attr.AttributeValue);
+                        var attrValue = GetAttributeValue(attr);
                         if (!attrValue.Equals(propertyValue))
                         {
                             should_add_entity = false;
@@ -36,6 +50,19 @@ namespace PSProject.Model
             }
 
             return result;
+        }
+
+        private static object GetAttributeValue(Attribute attribute)
+        {
+            var converter = TypeDescriptor.GetConverter(attribute.AttributeType);
+            var attrValue = converter.ConvertFrom(attribute.AttributeValue);
+
+            return attrValue;
+        }
+
+        private static object GetDefaultValue(Type type)
+        {
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
         }
     }
 }
