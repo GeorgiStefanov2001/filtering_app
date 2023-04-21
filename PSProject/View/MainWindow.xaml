@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PSProject"
         mc:Ignorable="d"
         Title="Criteria-based Search App" Height="450" Width="800"
-        MinHeight="210" MinWidth="400">
+        MinHeight="250" MinWidth="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/> <!-- TODO: Think of this when we add the toggle-->
@@ -46,7 +46,7 @@
                         <Label Content="{Binding AttributeType}"/>
                         --> 
                         <CheckBox Name="chkAttr" 
-                                  IsChecked="{Binding Checked}" 
+                                  IsChecked="{Binding Checked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                   Content="{Binding AttributeName}" 
                                   Checked="chkAttr_CheckedAndUnchecked" 
                                   Unchecked="chkAttr_CheckedAndUnchecked"/>
@@ -54,42 +54,79 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Grid.Row="1" 
-                Grid.Column="1" 
-                Command="{Binding FilterCommand}" 
-                VerticalAlignment="Bottom" 
-                HorizontalAlignment="Left" 
-                Margin="10"
-                Width="50" 
-                Height="25" 
-                Content="Search"/>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" 
+                    Grid.Column="0" 
+                    Command="{Binding FilterCommand}" 
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Left" 
+                    
+                    Width="50" 
+                    Height="25" 
+                    Content="Search"/>
+            <Button Grid.Row="0" 
+                    Grid.Column="1" 
+                    Command="{Binding ClearFiltersCommand}" 
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Left" 
+                    Margin="25, 0, 0, 0"
+                    Width="75" 
+                    Height="25" 
+                    Content="Clear Filters"/>
+        </Grid>
 
         <Grid Margin="10,0,0,0" Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label FontWeight="Bold">Attribute</Label>
-            <Label Grid.Column="1" FontWeight="Bold">Value</Label>
+            <Label Grid.Column="1" Margin="10,0,0,0" FontWeight="Bold">Comparison</Label>
+            <Label Grid.Column="2" Margin="20,0,0,0" FontWeight="Bold">Value</Label>
         </Grid>
         <ListView Margin="10,0,10,10" 
                   Grid.Row="3" 
                   Grid.Column="1" 
                   Name="attrInputList" 
-                  ItemsSource="{Binding SelectedAttributes}">
+                  ItemsSource="{Binding SelectedAttributes}"
+                  >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Column="0" Text="{Binding AttributeName}"/>
-                        <TextBox Grid.Column="1" 
+                        <ComboBox Grid.Column="1"
+                                  IsTextSearchEnabled="True"
+                                  SelectedIndex="{Binding ComparisonType}"
+                                  Width="Auto">
+                            <ComboBox.Style>
+                                <Style TargetType="{x:Type ComboBox}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsComparible}" Value="False">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                            <ComboBoxItem>Lower than</ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">Equals</ComboBoxItem>
+                            <ComboBoxItem>Greater than</ComboBoxItem>
+                        </ComboBox>
+                        <TextBox Grid.Column="2" 
                                  Text="{Binding AttributeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  Name="attrInput" 
-                                 Width="Auto" 
+                                 Width="Auto"
+                                 Margin="10,0,0,0"
                                  MinWidth="50"/>
                     </Grid>
                 </DataTemplate>

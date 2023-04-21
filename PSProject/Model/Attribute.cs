@@ -14,6 +14,13 @@ namespace PSProject.Model
 
         public String AttributeValue { get; set; }
 
+        public Boolean IsComparible { get; set; }
+
+        //0 -> lower than
+        //1 -> equals
+        //2 -> greater than
+        public Int32 ComparisonType { get; set; }
+
         public override string ToString()
         {
             return AttributeName;
@@ -31,6 +38,8 @@ namespace PSProject.Model
                     attr.Checked = false;
                     attr.AttributeType = property.PropertyType;
                     attr.AttributeValue = "";
+                    attr.IsComparible = (property.PropertyType == typeof(String)) ? false : true;
+                    attr.ComparisonType = 1; //by default, 'equals'
                     attributes.Add(attr);
                 }
             }

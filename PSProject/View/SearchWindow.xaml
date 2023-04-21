@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PSProject.View"
         mc:Ignorable="d"
         Title="TBD" Height="450" Width="800"
-        MinHeight="100">
+        MinHeight="150">
     <Grid>
         <DataGrid ItemsSource="{Binding FilteredEntities}" 
                   AutoGeneratingColumn="OnAutoGeneratingColumn" 

@@ -33,11 +33,14 @@ namespace PSProject.Model
                 {
                     var property = entity.GetType().GetProperty(attr.AttributeName);
                     var propertyValue = property.GetValue(entity, null);
-
+                    
                     if (propertyValue != null)
                     {
                         var attrValue = GetAttributeValue(attr);
-                        if (!attrValue.Equals(propertyValue))
+
+                        var compResult = (propertyValue as IComparable).CompareTo(attrValue as IComparable);
+
+                        if(compResult != (attr.ComparisonType - 1)) // take a look at ComparisonType in the Attribute class
                         {
                             should_add_entity = false;
                         }

@@ -2,6 +2,7 @@
 using PSProject.View;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -90,6 +91,17 @@ namespace PSProject.ViewModel
             {
                 MessageBox.Show(e.Message);
             }
+        }
+
+        public ICommand ClearFiltersCommand
+        {
+            get { return new DelegateCommand(ClearFilters); }
+        }
+
+        public void ClearFilters()
+        {
+            SelectedAttributes.Clear();
+            Attributes = new ObservableCollection<Model.Attribute<Car>>(Attributes.Select(x => { x.Checked = false; return x; }).ToList());
         }
     }
 }
