@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace PSProject.Model
 {
-    public class Attribute
+    public class Attribute<T>
     {
         public String AttributeName { get; set; }
+
         public Boolean Checked { get; set; }
 
         public Type AttributeType { get; set; }
@@ -19,14 +19,14 @@ namespace PSProject.Model
             return AttributeName;
         }
 
-        public static List<Attribute> GetAttributesOfEntity(Entity entity)
+        public static List<Attribute<T>> GetAttributesOfEntity(T entity)
         {
-            List<Attribute> attributes = new List<Attribute>();
+            List<Attribute<T>> attributes = new List<Attribute<T>>();
             foreach (var property in entity.GetType().GetProperties())
             {
                 if (!property.Name.Equals("Id"))
                 {
-                    Model.Attribute attr = new Model.Attribute();
+                    var attr = new Model.Attribute<T>();
                     attr.AttributeName = property.Name;
                     attr.Checked = false;
                     attr.AttributeType = property.PropertyType;
@@ -38,7 +38,7 @@ namespace PSProject.Model
             return attributes;
         }
 
-        public static void AttributeCheckedUnchecked(ObservableCollection<Attribute> Attributes, ObservableCollection<Attribute> SelectedAttributes)
+        public static void AttributeCheckedUnchecked(ObservableCollection<Attribute<T>> Attributes, ObservableCollection<Attribute<T>> SelectedAttributes)
         {
             foreach (var attribute in Attributes)
             {

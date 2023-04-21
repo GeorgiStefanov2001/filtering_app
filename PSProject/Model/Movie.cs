@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace PSProject.Model
 {
     [Table("Movies")]
-    public class Movie : Entity
+    public class Movie
     {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
         public Int32 Id { get; set; }

@@ -7,11 +7,11 @@ using System.Windows.Input;
 
 namespace PSProject.ViewModel
 {
-    public class MovieViewModel : ObservableObject
+    public class CarViewModel : ObservableObject
     {
 
-        private ObservableCollection<Movie> _filteredEntities;
-        public ObservableCollection<Movie> FilteredEntities
+        private ObservableCollection<Car> _filteredEntities;
+        public ObservableCollection<Car> FilteredEntities
         {
             get
             {
@@ -24,8 +24,8 @@ namespace PSProject.ViewModel
             }
         }
 
-        private ObservableCollection<Model.Attribute<Movie>> _attributes;
-        public ObservableCollection<Model.Attribute<Movie>> Attributes
+        private ObservableCollection<Model.Attribute<Car>> _attributes;
+        public ObservableCollection<Model.Attribute<Car>> Attributes
         {
             get
             {
@@ -38,9 +38,9 @@ namespace PSProject.ViewModel
             }
         }
 
-        
-        private ObservableCollection<Model.Attribute<Movie>> _selectedAttributes;
-        public ObservableCollection<Model.Attribute<Movie>> SelectedAttributes
+
+        private ObservableCollection<Model.Attribute<Car>> _selectedAttributes;
+        public ObservableCollection<Model.Attribute<Car>> SelectedAttributes
         {
             get
             {
@@ -53,37 +53,37 @@ namespace PSProject.ViewModel
             }
         }
 
-        public MovieViewModel()
+        public CarViewModel()
         {
-            //get the attributes of the Movie
-            var movieAttributes = Model.Attribute<Movie>.GetAttributesOfEntity(new Movie());
-            Attributes = new ObservableCollection<Model.Attribute<Movie>>(movieAttributes);
-            SelectedAttributes = new ObservableCollection<Model.Attribute<Movie>>();
+            //get the attributes of the Car
+            var carAttributes = Model.Attribute<Car>.GetAttributesOfEntity(new Car());
+            Attributes = new ObservableCollection<Model.Attribute<Car>>(carAttributes);
+            SelectedAttributes = new ObservableCollection<Model.Attribute<Car>>();
         }
 
 
         public void AttrCheckedUnchecked()
         {
-            Model.Attribute<Movie>.AttributeCheckedUnchecked(Attributes, SelectedAttributes);      
+            Model.Attribute<Car>.AttributeCheckedUnchecked(Attributes, SelectedAttributes);
         }
 
         public ICommand FilterCommand
         {
-            get { return new DelegateCommand(FilterMovies); }
+            get { return new DelegateCommand(FilterCars); }
         }
 
-        public void FilterMovies()
+        public void FilterCars()
         {
             try
             {
                 //get the filtered entities
-                var movies = new DatabaseManager().GetMovies();
-                FilteredEntities = Model.Filter<Movie>.FilterEntitiesBasedOnAttributes(movies, SelectedAttributes);
+                var cars = new DatabaseManager().GetCars();
+                FilteredEntities = Model.Filter<Car>.FilterEntitiesBasedOnAttributes(cars, SelectedAttributes);
 
                 //open the search window
                 SearchWindow searchWindow = new SearchWindow();
                 searchWindow.DataContext = this;
-                searchWindow.Title = "Movies";
+                searchWindow.Title = "Cars";
                 searchWindow.Show();
             }
             catch (ArgumentException e)

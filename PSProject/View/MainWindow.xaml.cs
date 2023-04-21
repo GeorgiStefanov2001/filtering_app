@@ -23,10 +23,14 @@ namespace PSProject
     public partial class MainWindow : Window
     {
         MovieViewModel movieViewModel;
+        CarViewModel carViewModel;
+
         public MainWindow()
         {
             InitializeComponent();
             movieViewModel = new MovieViewModel();
+            carViewModel = new CarViewModel();
+            DataContext = movieViewModel;
         }
 
         public void EntitySelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -36,20 +40,28 @@ namespace PSProject
             switch (item.Content.ToString())
             {
                 case "Movies":
-                    this.DataContext = movieViewModel;
+                    DataContext = movieViewModel;
                     break;
                 case "Cars":
+                    DataContext = carViewModel;
                     break;
             }
         }
 
         public void chkAttr_CheckedAndUnchecked(object sender, RoutedEventArgs e)
         {
-            var ViewModel = (MovieViewModel)this.DataContext; // store this in var and switch it for different models
-            if(ViewModel != null)
+            //Since the DataContext changes between different ViewModels,
+            //it needs to be casted runtime to the correct ViewModel
+            var ViewModel = Cast(DataContext, DataContext.GetType()); //I am so sorry for doing this, but I had to :(
+            if (ViewModel != null)
             {
                 ViewModel.AttrCheckedUnchecked();
             }
+        }
+
+        private static dynamic Cast(dynamic obj, Type castTo)
+        {
+            return Convert.ChangeType(obj, castTo);
         }
 
     }

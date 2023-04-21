@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PSProject"
         mc:Ignorable="d"
         Title="Criteria-based Search App" Height="450" Width="800"
-        MinHeight="250" MinWidth="350">
+        MinHeight="210" MinWidth="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/> <!-- TODO: Think of this when we add the toggle-->
@@ -18,17 +18,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition MinHeight="50" Height="*"/>
         </Grid.RowDefinitions>
-
-        <ComboBox Grid.Row="0"
-                  Grid.Column="0"
-                  Margin="10"
-                  IsEditable="True"
-                  IsTextSearchEnabled="True"
-                  Text="Select Entities to Filter"
-                  SelectionChanged="EntitySelectionChanged">
-            <ComboBoxItem>Movies</ComboBoxItem>
-            <ComboBoxItem>Cars</ComboBoxItem>
-        </ComboBox>
+        <StackPanel Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="10">
+            <Label FontWeight="Bold" FontSize="14">Select Entities to Filter:</Label>
+            <ComboBox IsEditable="True"
+                      IsTextSearchEnabled="True"
+                      SelectionChanged="EntitySelectionChanged"
+                      SelectedIndex="0">
+                <ComboBoxItem>Movies</ComboBoxItem>
+                <ComboBoxItem>Cars</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
         
         <ComboBox Name="ddAttr" 
                   Grid.Row="1" 
