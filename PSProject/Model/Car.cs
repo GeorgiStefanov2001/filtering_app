@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PSProject.Model
 {
     [Table("Cars")]
-    public class Car
+    public class Car : Entity
     {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
         public Int32 Id { get; set; }
@@ -15,9 +15,5 @@ namespace PSProject.Model
         public Int32 Year { get; set; }
         public Double EngineLitres { get; set; }
         public Int32 NumberOfDoors { get; set; }
-        public override string ToString()
-        {
-            return (Make + " " + Model);
-        }
     }
 }

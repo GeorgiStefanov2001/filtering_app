@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace PSProject.Model
 {
-    public class Filter<T>
+    public class Filter<T> where T : Model.Entity
     {
         public static ObservableCollection<T> FilterEntitiesBasedOnAttributes(List<T> Entities, ObservableCollection<Attribute<T>> SelectedAttributes)
         {

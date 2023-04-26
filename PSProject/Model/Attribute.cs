@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace PSProject.Model
 {
-    public class Attribute<T>
+    public class Attribute<T> where T : Model.Entity
     {
         public String AttributeName { get; set; }
 
