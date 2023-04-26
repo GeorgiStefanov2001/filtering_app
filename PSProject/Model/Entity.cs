@@ -4,6 +4,6 @@ using System.Text;
 
 namespace PSProject.Model
 {
-    public class Entity
+    public abstract class Entity
     { }
 }
