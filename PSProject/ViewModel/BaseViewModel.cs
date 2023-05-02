@@ -99,7 +99,7 @@ namespace PSProject.ViewModel
             get { return new DelegateCommand(ClearFilters); }
         }
 
-        public void ClearFilters()
+        protected void ClearFilters()
         {
             SelectedAttributes.Clear();
             Attributes = new ObservableCollection<Model.Attribute<T>>(Attributes.Select(x => { x.Checked = false; return x; }).Select(x=> { x.AttributeValue = ""; return x; }).ToList());

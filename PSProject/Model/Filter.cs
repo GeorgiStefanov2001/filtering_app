@@ -71,10 +71,5 @@ namespace PSProject.Model
 
             return attrValue;
         }
-
-        private static object GetDefaultValue(Type type)
-        {
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
-        }
     }
 }

@@ -18,11 +18,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition MinHeight="50" Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0"
+        <StackPanel Name="EntitiesSP" 
+                   Grid.Row="0"
                    Grid.Column="0"
                    Margin="10">
             <Label FontWeight="Bold" FontSize="14">Select Entities to Filter:</Label>
-            <ComboBox IsEditable="True"
+            <ComboBox Name="EntityCP"
+                      IsEditable="True"
                       IsTextSearchEnabled="True"
                       SelectionChanged="EntitySelectionChanged"
                       SelectedIndex="0">

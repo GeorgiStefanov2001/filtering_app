@@ -34,3 +34,4 @@ C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\View
 C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\View\SearchWindow.baml
 C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\PSProject.Migrations.AddCars.resources
 C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\PSProject.Migrations.RemoveCarRating.resources
+C:\Users\GAS\Desktop\ps_project\PSProject\PSProject\obj\Debug\netcoreapp3.1\PSProject.Migrations.MoveIdToEntity.resources
